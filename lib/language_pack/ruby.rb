@@ -526,8 +526,9 @@ params = CGI.parse(uri.query || "")
 
   def generate_ruhoh_site
     puts "Building ruhoh site"
-    output = run_stdout("env PATH=$PATH bundle exec ruhoh compile")
-    puts "Output #{output}"
-    error "Failed to generate site with ruhoh."
+    run("env PATH=$PATH bundle exec ruhoh compile")
+    unless $? == 0
+      error "Failed to generate site with ruhoh."
+    end
   end
 end
